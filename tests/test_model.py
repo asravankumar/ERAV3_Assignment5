@@ -47,4 +47,5 @@ def test_model_accuracy():
             correct += (predicted == target).sum().item()
     
     accuracy = 100 * correct / total
+    print("accuracy is ", accuracy)
     assert accuracy > 80, f"Model accuracy is {accuracy}%, should be > 80%" 

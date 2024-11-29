@@ -18,7 +18,9 @@ def train():
     
     train_dataset = datasets.MNIST('data', train=True, download=True, transform=transform)
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True)
-    
+    model = SimpleCNN()
+    total_params = sum(p.numel() for p in model.parameters())
+    print("total params", total_params)
     # Initialize model
     model = SimpleCNN().to(device)
     criterion = nn.CrossEntropyLoss()
@@ -34,8 +36,13 @@ def train():
         loss.backward()
         optimizer.step()
         
+        # Calculate accuracy for this batch
+        _, predicted = torch.max(output.data, 1)
+        correct = (predicted == target).sum().item()
+        accuracy = 100 * correct / len(target)
+        
         if batch_idx % 100 == 0:
-            print(f'Batch {batch_idx}/{len(train_loader)}, Loss: {loss.item():.4f}')
+            print(f'Batch {batch_idx}/{len(train_loader)}, Loss: {loss.item():.4f}, Accuracy: {accuracy:.2f}%')
     
     # Save model with timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
