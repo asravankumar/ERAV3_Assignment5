@@ -6,8 +6,8 @@ class SimpleCNN(nn.Module):
         super(SimpleCNN, self).__init__()
         self.conv1 = nn.Conv2d(1, 10, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(10, 16, kernel_size=3, padding=1)
-        self.fc1 = nn.Linear(16 * 7 * 7, 32)
-        self.fc2 = nn.Linear(32, 10)
+        self.fc1 = nn.Linear(16 * 7 * 7, 25)
+        self.fc2 = nn.Linear(25, 10)
         self.pool = nn.MaxPool2d(2, 2)
         self.relu = nn.ReLU()
 
