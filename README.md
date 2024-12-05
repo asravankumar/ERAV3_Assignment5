@@ -29,10 +29,10 @@ The model (`SimpleCNN`) is a lightweight convolutional neural network designed f
   - Conv2: 10 → 16 channels (3x3 kernel, padding=1)
 - **Pooling**: MaxPool2d (2x2) after each conv layer
 - **Fully Connected Layers**:
-  - FC1: 16 * 7 * 7 → 32 neurons
-  - FC2: 32 → 10 neurons (output layer)
+  - FC1: 16 * 7 * 7 → 25 neurons
+  - FC2: 25 → 10 neurons (output layer)
 - **Activation**: ReLU after each layer except the final output
-- **Total Parameters**: < 100,000
+- **Total Parameters**: < 25,000
 
 ## Training Details
 
@@ -42,6 +42,20 @@ The model (`SimpleCNN`) is a lightweight convolutional neural network designed f
 - **Loss Function**: CrossEntropyLoss
 - **Training Duration**: 1 epoch
 - **Input Normalization**: Mean=0.1307, Std=0.3081
+
+### Data Augmentation
+The training pipeline includes random augmentations with 50% probability per image:
+1. **Affine Transformations**:
+   - Rotation: ±15 degrees
+   - Translation: ±10% in both directions
+   - Scaling: 90-110% of original size
+2. **Pure Rotation**:
+   - Random rotation up to ±20 degrees
+3. **Gaussian Noise**:
+   - Random noise with 0.1 standard deviation
+   - Values clamped to [0,1] range
+
+For each image that gets augmented (50% chance), one of these three techniques is randomly selected. Test/validation data remains unaugmented for consistent evaluation.
 
 ## CI/CD Pipeline
 
