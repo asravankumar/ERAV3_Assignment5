@@ -1,5 +1,8 @@
 # MNIST Classification with CI/CD Pipeline
 
+
+![Build Status](https://github.com/asravankumar/ERAV3_Assignment5/actions/workflows/ml-pipeline.yml/badge.svg)
+
 This project implements a simple Convolutional Neural Network (CNN) for MNIST digit classification with a complete CI/CD pipeline using GitHub Actions. The pipeline includes automated training, testing, and model validation.
 
 ## Project Structure
