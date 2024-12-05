@@ -53,9 +53,29 @@ The GitHub Actions workflow (`ml-pipeline.yml`) automatically:
 5. Archives the trained model
 
 ### Validation Tests
-- Model parameter count (< 100,000)
-- Input/output dimensions (28x28 → 10 classes)
-- Model accuracy (> 80% on test set)
+1. **Model Architecture Tests**
+   - Model parameter count (< 25,000)
+   - Input/output dimensions (28x28 → 10 classes)
+
+2. **Performance Tests**
+   - Model accuracy (> 95% on test set)
+   - Output probability distribution validation
+   - Gradient flow verification
+
+3. **Robustness Tests**
+   - Zero input handling
+   - All-ones input handling
+   - Multiple batch size processing (1, 4, 16)
+
+Each test ensures specific aspects of the model:
+- `test_model_parameters`: Verifies model is lightweight
+- `test_model_accuracy`: Checks performance on MNIST test set
+- `test_input_output_dimensions`: Validates correct tensor shapes
+- `test_output_probability_distribution`: Ensures valid probability outputs
+- `test_model_gradient_flow`: Confirms proper backpropagation
+- `test_model_on_zeros`: Checks model stability with zero inputs
+- `test_model_on_ones`: Verifies handling of maximum value inputs
+- `test_batch_processing`: Tests flexibility with different batch sizes
 
 ## Local Development
 

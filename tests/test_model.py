@@ -8,12 +8,6 @@ def test_model_parameters():
     total_params = sum(p.numel() for p in model.parameters())
     assert total_params < 25000, f"Model has {total_params} parameters, should be less than 25000"
 
-def test_input_output_dimensions():
-    model = SimpleCNN()
-    test_input = torch.randn(1, 1, 28, 28)
-    output = model(test_input)
-    assert output.shape == (1, 10), f"Output shape is {output.shape}, should be (1, 10)"
-
 def test_model_accuracy():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = SimpleCNN().to(device)
@@ -56,6 +50,12 @@ def test_model_accuracy():
         
     except Exception as e:
         pytest.fail(f"Error during accuracy testing: {str(e)}")
+
+def test_input_output_dimensions():
+    model = SimpleCNN()
+    test_input = torch.randn(1, 1, 28, 28)
+    output = model(test_input)
+    assert output.shape == (1, 10), f"Output shape is {output.shape}, should be (1, 10)"
 
 def test_output_probability_distribution():
     """Test if model outputs valid probability distributions"""
